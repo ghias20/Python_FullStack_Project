@@ -56,14 +56,6 @@ def get_most_frequent_exercise(user_id: int):
     most_frequent = max(set(exercises), key=exercises.count)
     return most_frequent
 
-def filter_workouts_by_exercise(user_id: int, exercise: str):
-    resp = sb.table("workouts").select("workout_id, exercise, duration_minutes, calories_burned").eq("user_id", user_id).eq("exercise", exercise).execute()
-    return resp.data
-
-def search_workouts_by_date(user_id: int, date: str):
-    resp = sb.table("workouts").select("workout_id, exercise, duration_minutes, calories_burned, workout_date").eq("user_id", user_id).eq("workout_date", date).execute()
-    return resp.data
-
 if __name__ == "__main__":
     while True:
         print("\n==== Smart Fitness Tracker ====")
@@ -75,8 +67,6 @@ if __name__ == "__main__":
         print("6. Get User Workouts")
         print("7. Get Total Calories Burned")
         print("8. Get Most Frequent Exercise")
-        print("9. Filter Workouts by Exercise")
-        print("10. Search Workouts by Date")
         print("0. Exit")
 
         choice = input("\nChoose an option: ")
@@ -139,24 +129,6 @@ if __name__ == "__main__":
             user = get_user_by_email(email)
             if user:
                 print("Most Frequent Exercise:", get_most_frequent_exercise(user["user_id"]))
-            else:
-                print("User not found.")
-
-        elif choice == "9":
-            email = input("Enter user email: ")
-            user = get_user_by_email(email)
-            if user:
-                exercise = input("Enter exercise: ")
-                print(filter_workouts_by_exercise(user["user_id"], exercise))
-            else:
-                print("User not found.")
-
-        elif choice == "10":
-            email = input("Enter user email: ")
-            user = get_user_by_email(email)
-            if user:
-                date = input("Enter date (YYYY-MM-DD): ")
-                print(search_workouts_by_date(user["user_id"], date))
             else:
                 print("User not found.")
 
