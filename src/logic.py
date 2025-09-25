@@ -1,7 +1,7 @@
 from src import db
 
 class SmartFitnessTracker:
-    def __init__(self, email: str):
+    def __init__(self, email: str = None):
         self.email = email
         self.user = db.get_user_by_email(email)
         if not self.user:

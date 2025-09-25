@@ -1,4 +1,7 @@
 from fastapi import FastAPI, HTTPException
+import sys, os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from src.logic import SmartFitnessTracker
